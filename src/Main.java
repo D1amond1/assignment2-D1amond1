@@ -7,10 +7,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Library library = new Library(10);
 
-        int choice;
-
-        do {
-            System.out.println("\n===== Library Menu =====");
+        while (true) {
+            System.out.println("\nLibrary Menu:");
             System.out.println("1. Add book");
             System.out.println("2. Add e-book");
             System.out.println("3. Display all books");
@@ -18,19 +16,42 @@ public class Main {
             System.out.println("5. Borrow book");
             System.out.println("6. Return book");
             System.out.println("7. Exit");
-            System.out.print("Choose option: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
 
                 case 1:
-                    // TODO: Read input and add Book
+                    System.out.print("Enter title: ");
+                    String title = scanner.nextLine();
+
+                    System.out.print("Enter author: ");
+                    String author = scanner.nextLine();
+
+                    System.out.print("Enter year: ");
+                    int year = scanner.nextInt();
+                    scanner.nextLine();
+
+                    library.addBook(new Book(title, author, year));
                     break;
 
                 case 2:
-                    // TODO: Read input and add EBook
+                    System.out.print("Enter title: ");
+                    String eTitle = scanner.nextLine();
+
+                    System.out.print("Enter author: ");
+                    String eAuthor = scanner.nextLine();
+
+                    System.out.print("Enter year: ");
+                    int eYear = scanner.nextInt();
+
+                    System.out.print("Enter file size (MB): ");
+                    double fileSize = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    library.addBook(new EBook(eTitle, eAuthor, eYear, fileSize));
                     break;
 
                 case 3:
@@ -38,27 +59,36 @@ public class Main {
                     break;
 
                 case 4:
-                    // TODO: Search book
+                    System.out.print("Enter title to search: ");
+                    String searchTitle = scanner.nextLine();
+
+                    Book foundBook = library.searchByTitle(searchTitle);
+                    if (foundBook != null) {
+                        System.out.println(foundBook);
+                    } else {
+                        System.out.println("Book not found");
+                    }
                     break;
 
                 case 5:
-                    // TODO: Borrow book
+                    System.out.print("Enter title to borrow: ");
+                    String borrowTitle = scanner.nextLine();
+                    library.borrowBook(borrowTitle);
                     break;
 
                 case 6:
-                    // TODO: Return book
+                    System.out.print("Enter title to return: ");
+                    String returnTitle = scanner.nextLine();
+                    library.returnBook(returnTitle);
                     break;
 
                 case 7:
-                    System.out.println("Goodbye!");
-                    break;
+                    scanner.close();
+                    return;
 
                 default:
-                    System.out.println("Invalid option!");
+                    System.out.println("Invalid option");
             }
-
-        } while (choice != 7);
-
-        scanner.close();
+        }
     }
 }
